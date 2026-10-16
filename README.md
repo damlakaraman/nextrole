@@ -4,6 +4,9 @@
 
 Track job applications and interviews in one place.
 
+**[Canlı Uygulama / Live Demo](https://poetic-gelato-818674.netlify.app)** ·
+**[Kaynak Kod / Source Code](https://github.com/damlakaraman/nextrole)**
+
 ---
 
 ## Türkçe
@@ -14,29 +17,51 @@ NextRole, iş ve staj arayan kişilerin başvurularını, süreç durumlarını
 ve görüşme notlarını tek bir ekranda takip edebilmesi için geliştirilmiş
 bir web uygulamasıdır.
 
-Dağınık başvuru kayıtlarını düzenlemeyi ve hangi başvurunun hangi
-aşamada olduğunu görmeyi kolaylaştırmayı amaçlar.
+Proje, farklı platformlarda yapılan başvuruların dağınık kalması ve
+hangi başvurunun hangi aşamada olduğunun takip edilememesi problemine
+odaklanır.
 
-Bu proje, sertifikalı eğitim programının web geliştirme projesi
-kapsamında hazırlanmıştır.
+Sertifikalı eğitim programının web geliştirme projesi kapsamında
+hazırlanmıştır. Bu ilk sürüm, kişisel başvuru takibinin temel
+işlevlerini sunar.
 
 ### Özellikler
 
 - Şirket, pozisyon, başvuru tarihi ve durum bilgileriyle başvuru ekleme
-- Başvurulara isteğe bağlı ilan bağlantısı ve not ekleme
-- Başvuruları listeleme, düzenleme ve onay alarak silme
+- İsteğe bağlı ilan bağlantısı ve not ekleme
+- Başvuruları listeleme ve düzenleme
+- Kullanıcı onayıyla başvuru silme
 - Şirket veya pozisyon adına göre arama
 - Başvuru durumuna göre filtreleme
 - Toplam başvuru, mülakat ve teklif sayılarını görüntüleme
-- Kayıtları LocalStorage ile kullanılan tarayıcıda saklama
+- LocalStorage ile tarayıcıda veri saklama
 - Farklı ekran genişliklerine uyum sağlayan tasarım
-- Zorunlu alan ve HTTP/HTTPS bağlantı kontrolü
+- Zorunlu alan, boşluk ve HTTP/HTTPS bağlantı kontrolleri
 - Boş liste, işlem sonucu ve depolama hatası bildirimleri
 
-Başvuru durumları: Başvuruldu, Mülakat, Teklif ve Olumsuz.
+Başvuru durumları: **Başvuruldu, Mülakat, Teklif ve Olumsuz.**
 
 Özet sayaçları tüm kayıtlar üzerinden hesaplanır.
 Arama ve durum filtresi yalnızca görüntülenen listeyi etkiler.
+“Mülakat” sayacı mevcut durumu Mülakat olan kayıtları gösterir;
+geçmişte yapılan toplam görüşme sayısını göstermez.
+
+### Ekran görüntüleri
+
+#### Genel görünüm
+
+![NextRole genel görünümü](docs/screenshots/nextrole-desktop.png)
+
+#### Duruma göre filtreleme
+
+![Mülakat durumundaki başvuruların filtrelenmesi](docs/screenshots/nextrole-filter.png)
+
+#### Şirket adına göre arama
+
+![Şirket adına göre başvuru arama](docs/screenshots/nextrole-search.png)
+
+Ekran görüntüleri uygulamanın kullanımını göstermek için eklenmiştir.
+Görsellerdeki kayıtlar uygulamayı ziyaret eden kişilere otomatik yüklenmez.
 
 ### Kullanılan teknolojiler
 
@@ -49,19 +74,28 @@ Arama ve durum filtresi yalnızca görüntülenen listeyi etkiler.
 | LocalStorage | Tarayıcıda veri saklama |
 | ESLint | Kod kurallarının denetlenmesi |
 | Git ve GitHub | Sürüm takibi ve kaynak kod paylaşımı |
+| Netlify | Canlı yayın ve GitHub üzerinden otomatik dağıtım |
 
-### Çalışma mantığı
+### Çalışma mantığı ve tasarım kararları
 
 Başvuru kayıtları JavaScript nesnelerinden oluşan bir dizi içinde tutulur.
 React useState ile başvuru listesi, form alanları ve filtre seçimleri yönetilir.
 
 Her başvuruya crypto.randomUUID() ile benzersiz bir kimlik atanır.
-Düzenleme ve silme işlemlerinde ilgili kayıt bu kimlik üzerinden bulunur.
+Düzenleme ve silme işlemlerinde ilgili kayıt bu kimlikle bulunur.
 
 Ekleme, düzenleme ve silme işlemlerinde güncel liste JSON.stringify()
 ile metne dönüştürülerek LocalStorage'a yazılır.
 Saklama işlemi başarılı olduğunda ekrandaki liste güncellenir.
 Uygulama açılırken kayıtlar JSON.parse() ile okunur.
+
+React, arayüzü veri değişiklikleriyle birlikte güncellemek için seçilmiştir.
+LocalStorage ise ilk sürümü sunucu ve uzak veritabanı kurmadan
+kullanılabilir hale getirmek için tercih edilmiştir.
+
+Zorunlu alan ve bağlantı kontrolleri hatalı veri girişini azaltır.
+Silme onayı, yanlışlıkla kayıt silinmesini önlemeye yardımcı olur.
+Depolama başarısız olursa kullanıcıya hata mesajı gösterilir.
 
 Uygulama makine öğrenmesi veya tahmin modeli kullanmaz.
 Sayaçlar mevcut başvuru kayıtlarından hesaplanır.
@@ -92,13 +126,24 @@ npm run lint
 npm run build
 ```
 
-Oluşturulan üretim derlemesini yerel ortamda önizlemek için:
+Üretim derlemesini yerel ortamda önizlemek için:
 
 ```bash
 npm run preview
 ```
 
 Üretim dosyaları dist klasöründe oluşturulur.
+
+### Canlı yayın
+
+Uygulama: https://poetic-gelato-818674.netlify.app
+
+Proje, GitHub deposunun main dalına bağlı olarak Netlify üzerinde
+yayımlanır. Netlify, npm run build komutunu çalıştırır ve dist
+klasöründeki çıktıyı sunar.
+
+main dalına gönderilen yeni commit'ler otomatik dağıtım sürecini başlatır.
+Dağıtım başarılı olduğunda canlı site güncellenir.
 
 ### Veri saklama ve sınırlamalar
 
@@ -108,7 +153,8 @@ npm run preview
 - Site verilerinin temizlenmesi kayıtların silinmesine neden olabilir.
 - Gizli gezinme oturumu sona erdiğinde kayıtlar silinebilir.
 - Kayıtlar farklı cihaz veya tarayıcılar arasında eşitlenmez.
-- Yerel geliştirme adresi ile yayımlanan site ayrı kayıt alanlarına sahiptir.
+- Yerel geliştirme adresi ve canlı site ayrı kayıt alanlarına sahiptir.
+- İlk kez açan kullanıcı boş bir başvuru listesi görür.
 - Kullanıcı hesabı, bulut yedekleme ve dışa aktarma özellikleri bulunmaz.
 - Kaynak kodun public olması tarayıcıdaki başvuru kayıtlarını yayımlamaz.
 - LocalStorage şifreli bir kasa değildir; hassas bilgiler saklanmamalıdır.
@@ -116,9 +162,9 @@ npm run preview
 ### Kontrol senaryoları
 
 - Başvuru eklenince liste ve sayaçların güncellenmesi
-- Düzenleme işleminin yeni kayıt oluşturmadan mevcut kaydı değiştirmesi
+- Düzenlemenin yeni kayıt oluşturmadan mevcut kaydı değiştirmesi
 - Düzenlemeden vazgeçildiğinde kaydın değişmemesi
-- Silme işleminin yalnızca kullanıcı onayıyla gerçekleşmesi
+- Silmenin yalnızca kullanıcı onayıyla gerçekleşmesi
 - Arama ve durum filtresinin birlikte çalışması
 - Sayfa yenilendiğinde kayıtların korunması
 - Zorunlu alan ve bağlantı kontrollerinin çalışması
@@ -126,12 +172,6 @@ npm run preview
 
 Bu senaryolar manuel kontrol listesidir.
 ESLint ve üretim derlemesi, kullanıcı etkileşimi testlerinin yerine geçmez.
-
-### Teslim durumu
-
-- Kaynak kod: https://github.com/damlakaraman/nextrole
-- Canlı site: Henüz yayımlanmadı.
-- Ekran görüntüsü: Teslim hazırlığında eklenecek.
 
 ### Gelecek geliştirmeler
 
@@ -151,30 +191,44 @@ Bu özellikler mevcut sürüme dahil değildir.
 NextRole is a web application that helps job and internship seekers
 track applications, recruitment stages, and interview notes in one place.
 
-It aims to organize scattered application records and make each
-application's current stage easier to follow.
+It addresses the difficulty of organizing applications submitted
+through different platforms and following their current stages.
 
-The project was developed as the web development assignment
-of a certified training program.
+The project was developed as the web development assignment of a
+certified training program. This first version provides the core
+features of personal application tracking.
 
 ### Features
 
 - Add applications with company, position, application date, and status
 - Include optional job posting links and notes
-- List, edit, and delete applications with confirmation
+- List and edit applications
+- Delete applications with user confirmation
 - Search by company or position
 - Filter by application status
 - View total application, interview, and offer counts
-- Store records in the current browser using LocalStorage
+- Store records in the browser using LocalStorage
 - Responsive layout for different screen widths
-- Required field and HTTP/HTTPS link validation
+- Required field, whitespace, and HTTP/HTTPS link validation
 - Empty states, action feedback, and storage error messages
 
-Application statuses: Applied, Interview, Offer, and Rejected.
-The current user interface displays these statuses in Turkish.
+Application statuses: **Applied, Interview, Offer, and Rejected.**
+The current interface displays these statuses in Turkish.
 
 Summary counts are calculated from all records.
 Search and status filters only affect the displayed list.
+The Interview count represents applications currently at that stage,
+not the total number of past interviews.
+
+### Screenshots
+
+The screenshots in the Turkish section above show:
+
+- The main dashboard
+- Filtering applications by interview status
+- Searching applications by company name
+
+Screenshot records are not automatically loaded for visitors.
 
 ### Technologies
 
@@ -187,8 +241,9 @@ Search and status filters only affect the displayed list.
 | LocalStorage | Browser-based data storage |
 | ESLint | Code linting |
 | Git and GitHub | Version control and source code sharing |
+| Netlify | Hosting and automatic deployment from GitHub |
 
-### How it works
+### How it works and design decisions
 
 Applications are stored as an array of JavaScript objects.
 React useState manages the application list, form fields, and filters.
@@ -200,6 +255,14 @@ When an application is added, edited, or deleted, the updated list is
 serialized using JSON.stringify() and written to LocalStorage.
 The displayed list is updated after storage succeeds.
 Saved records are read using JSON.parse() when the application loads.
+
+React was chosen to keep the interface updated as application data changes.
+LocalStorage was selected to make the first version usable without
+setting up a backend or remote database.
+
+Required field and link validation reduce invalid input.
+Deletion confirmation helps prevent accidental removal.
+Storage failures are reported to the user.
 
 The application does not use machine learning or prediction models.
 Summary counts are calculated from existing application records.
@@ -238,6 +301,16 @@ npm run preview
 
 Production files are generated in the dist directory.
 
+### Deployment
+
+Live application: https://poetic-gelato-818674.netlify.app
+
+The project is deployed on Netlify from the GitHub repository's main branch.
+Netlify runs npm run build and serves the output from the dist directory.
+
+New commits pushed to main trigger automatic deployment.
+The live site is updated after a successful deployment.
+
 ### Storage and limitations
 
 - The application does not use a backend or remote database.
@@ -246,7 +319,8 @@ Production files are generated in the dist directory.
 - Clearing site data may delete saved records.
 - Private browsing records may be removed when the private session ends.
 - Records do not sync across devices or browsers.
-- Local development and the deployed site use separate storage areas.
+- Local development and the live site use separate storage areas.
+- First-time visitors see an empty application list.
 - User accounts, cloud backups, and data export are not included.
 - Publishing the source code does not publish browser-stored applications.
 - LocalStorage is not an encrypted vault; sensitive information should not be stored.
@@ -264,12 +338,6 @@ Production files are generated in the dist directory.
 
 These scenarios are a manual checklist.
 Linting and a successful production build do not replace interaction testing.
-
-### Delivery status
-
-- Source code: https://github.com/damlakaraman/nextrole
-- Live site: Not deployed yet.
-- Screenshot: To be added during delivery preparation.
 
 ### Future improvements
 
