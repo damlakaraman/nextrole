@@ -5,7 +5,7 @@
 Track job applications and interviews in one place.
 
 **[Canlı Uygulama / Live Demo](https://poetic-gelato-818674.netlify.app)** ·
-**[Kaynak Kod / Source Code](https://github.com/damlakaraman/nextrole)**
+**[Ekran Görüntüleri / Screenshots](docs/screenshots)**
 
 ---
 
@@ -22,8 +22,7 @@ hangi başvurunun hangi aşamada olduğunun takip edilememesi problemine
 odaklanır.
 
 Sertifikalı eğitim programının web geliştirme projesi kapsamında
-hazırlanmıştır. Bu ilk sürüm, kişisel başvuru takibinin temel
-işlevlerini sunar.
+hazırlanmıştır. İlk sürüm, kişisel başvuru takibinin temel işlevlerini sunar.
 
 ### Özellikler
 
@@ -43,24 +42,17 @@ Başvuru durumları: **Başvuruldu, Mülakat, Teklif ve Olumsuz.**
 
 Özet sayaçları tüm kayıtlar üzerinden hesaplanır.
 Arama ve durum filtresi yalnızca görüntülenen listeyi etkiler.
-“Mülakat” sayacı mevcut durumu Mülakat olan kayıtları gösterir;
+
+Mülakat sayacı, mevcut durumu Mülakat olan kayıtları gösterir;
 geçmişte yapılan toplam görüşme sayısını göstermez.
 
 ### Ekran görüntüleri
 
-#### Genel görünüm
+Uygulamanın genel görünümü, arama ve filtreleme işlemleriyle ilgili
+ekran görüntülerine aşağıdaki klasörden ulaşabilirsiniz.
 
-![NextRole genel görünümü](docs/screenshots/nextrole-desktop.png)
+**[Tüm ekran görüntülerini görüntüle](docs/screenshots)**
 
-#### Duruma göre filtreleme
-
-![Mülakat durumundaki başvuruların filtrelenmesi](docs/screenshots/nextrole-filter.png)
-
-#### Şirket adına göre arama
-
-![Şirket adına göre başvuru arama](docs/screenshots/nextrole-search.png)
-
-Ekran görüntüleri uygulamanın kullanımını göstermek için eklenmiştir.
 Görsellerdeki kayıtlar uygulamayı ziyaret eden kişilere otomatik yüklenmez.
 
 ### Kullanılan teknolojiler
@@ -136,7 +128,7 @@ npm run preview
 
 ### Canlı yayın
 
-Uygulama: https://poetic-gelato-818674.netlify.app
+**[NextRole'u aç](https://poetic-gelato-818674.netlify.app)**
 
 Proje, GitHub deposunun main dalına bağlı olarak Netlify üzerinde
 yayımlanır. Netlify, npm run build komutunu çalıştırır ve dist
@@ -195,7 +187,7 @@ It addresses the difficulty of organizing applications submitted
 through different platforms and following their current stages.
 
 The project was developed as the web development assignment of a
-certified training program. This first version provides the core
+certified training program. The first version provides the core
 features of personal application tracking.
 
 ### Features
@@ -217,16 +209,16 @@ The current interface displays these statuses in Turkish.
 
 Summary counts are calculated from all records.
 Search and status filters only affect the displayed list.
+
 The Interview count represents applications currently at that stage,
 not the total number of past interviews.
 
 ### Screenshots
 
-The screenshots in the Turkish section above show:
+Screenshots of the dashboard, search, and filtering features
+are available in the folder below.
 
-- The main dashboard
-- Filtering applications by interview status
-- Searching applications by company name
+**[View all screenshots](docs/screenshots)**
 
 Screenshot records are not automatically loaded for visitors.
 
@@ -303,7 +295,7 @@ Production files are generated in the dist directory.
 
 ### Deployment
 
-Live application: https://poetic-gelato-818674.netlify.app
+**[Open NextRole](https://poetic-gelato-818674.netlify.app)**
 
 The project is deployed on Netlify from the GitHub repository's main branch.
 Netlify runs npm run build and serves the output from the dist directory.
